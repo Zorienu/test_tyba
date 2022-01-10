@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
     "test:watch:projects": "npm run test -- --watchAll tests/projects.test.ts",
-    "test:watch": "npm run test -- --watchAll tests/login.test.ts",
+    "test:watch": "npm run test -- --watchAll tests/user.test.ts",
     "test-detectOpenHandles": "cross-env NODE_ENV=test jest --silent --detectOpenHandles",
     "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config src/index.ts",
     "build": "tsc",
