@@ -4,6 +4,7 @@ import { bodyKeysToLowerCase } from "./middlewares/bodyKeysToLowerCase";
 import { errorHandler } from "./middlewares/errorHandler";
 import { setStartDate } from "./middlewares/setStartDate";
 import { TController } from "./utils/UlTypes";
+import cookieParser from 'cookie-parser'
 
 export class TApp {
    public app: Application
@@ -25,6 +26,7 @@ export class TApp {
       // Convertir datos enviados a través de formulario
       // extended: false -> no aceptar datos como imágenes, solo datos simple como cajas de texto
       this.app.use(express.urlencoded({ extended: false }))
+      this.app.use(cookieParser())
       // Con cada petición se establecerá la fecha de entrada
       this.app.use(setStartDate)
       // Convertir las keys del JSON del body a minúscula

@@ -5,7 +5,7 @@ import { TJSONObject, TResponseData } from "../utils/UlTypes"
 import { verifyJSONBody } from '../utils/UlSequelizeUtils'
 import User from '../models/User'
 import { Error401, RstError, TErr401 } from '../utils/UlError'
-import { val2String } from '../utils/UlParse'
+import { val2Number, val2String } from '../utils/UlParse'
 import { getResponse } from '../utils/UlResponse'
 
 export const loginUser = (req: Request): Promise<TResponseData> => {
@@ -36,7 +36,9 @@ export const loginUser = (req: Request): Promise<TResponseData> => {
             email: user.email
          }
 
-         let token: string = jwt.sign(jToken, val2String(process.env.JWT_SECRET))
+         // Se obtiene el token 
+         let maxAge: number = val2Number(process.env.TOKEN_MAX_AGE)
+         let token: string = jwt.sign(jToken, val2String(process.env.JWT_SECRET), { expiresIn: maxAge })
 
          resolve(getResponse(req, { name: user.name, email: user.email, token }))
       } catch (error) {
