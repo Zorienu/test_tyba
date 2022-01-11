@@ -6,7 +6,7 @@ import { val2Bool, val2String } from "../utils/UlParse"
 import { TJSONObject } from "../utils/UlTypes"
 import User from '../models/User'
 
-export async function userExtractor(req: Request, res: Response, next: NextFunction) {
+export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
    try {
       // Se obtiene el authorization de los headers 
       const authorization: string = val2String(req.get('authorization'))

@@ -8,8 +8,6 @@ const ResultHistory = Conn.define('results_history', {
    longitude: { type: DataTypes.REAL },
    distance: { type: DataTypes.REAL },
    title: { type: DataTypes.TEXT },
-   averagerating: { type: DataTypes.TEXT },
-   category: { type: DataTypes.TEXT },
    address: { type: DataTypes.TEXT },
 }, {
    timestamps: false,

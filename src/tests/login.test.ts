@@ -22,8 +22,6 @@ describe('The token is given to the user with correct credentials', () => {
 
       expect(body.token).toBeDefined()
       expect(typeof body.token).toBe('string')
-
-
    })
 })
 
