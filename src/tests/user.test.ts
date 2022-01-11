@@ -1,4 +1,5 @@
 import supertest from 'supertest'
+import bcrypt from 'bcrypt'
 import { App } from '..'
 import { Conn } from '../database/database'
 import { paths } from '../includes/UlConst'
@@ -6,6 +7,7 @@ import User from "../models/User"
 import { getFields } from '../utils/UlSequelizeUtils'
 import { TJSONObject } from "../utils/UlTypes"
 import { initialUsers } from './UlHelper'
+import { val2Number } from '../utils/UlParse'
 
 const api = supertest(App.app)
 
@@ -15,8 +17,11 @@ beforeEach(async () => {
       await User.destroy({ where: {} })
 
       // Insertar nuevos usuarios
-      for (let initialUser of initialUsers)
+      for (let initialUser of initialUsers) {
+         // Encriptar contraseña
+         initialUser["password"] = await bcrypt.hash(initialUser["password"], val2Number(process.env.SALT_ROUNDS))
          await User.create(initialUser, { fields: getFields(User.rawAttributes, ['id']) })
+      }
    } catch (error) {
       console.error(error)
    }
